@@ -1,0 +1,135 @@
+<app-menu></app-menu>
+<app-aside></app-aside>
+<div class="main-centrado">
+  <br>
+  <br>
+  <div class="pagetitle container-center">
+    <h1>REGISTRO/EDICIÓN DE OPERARIOS</h1>
+  </div>
+  <mat-card>
+    <mat-card-content>
+      <form #formPersonalForm="ngForm" (ngSubmit)="onSubmit()">
+        <div class="card-container">
+          <div class="card-wrapper">
+            <mat-form-field appearance="outline" class="example-full-width custom-mat-select">
+              <mat-label>Nombre</mat-label>
+              <input matInput placeholder="Nombre" [(ngModel)]="nombre" name="nombre" type="text" required maxlength="50" [disabled]="isReadOnly" style="text-transform:uppercase">
+            </mat-form-field>
+          </div>
+          <div class="card-wrapper">
+            <mat-form-field appearance="outline" class="example-full-width custom-mat-select">
+              <mat-label>Apellido Paterno</mat-label>
+              <input matInput placeholder="Apellido Paterno" [(ngModel)]="apellidoPaterno" required name="apellidoPaterno" type="text"  maxlength="50" [disabled]="isReadOnly" style="text-transform:uppercase">
+            </mat-form-field>
+          </div>
+          <div class="card-wrapper">
+            <mat-form-field appearance="outline" class="example-full-width custom-mat-select">
+              <mat-label>Apellido Materno</mat-label>
+              <input matInput placeholder="Apellido Materno" [(ngModel)]="apellidoMaterno" required name="apellidoMaterno" type="text"  maxlength="50" [disabled]="isReadOnly" style="text-transform:uppercase">
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="card-container">
+          <div class="card-wrapper">
+            <mat-form-field appearance="outline" class="example-full-width custom-mat-select">
+              <mat-label>Número Celular</mat-label>
+              <input matInput placeholder="Número Celular" [(ngModel)]="numeroCelular" required name="numeroCelular" type="text" pattern="\d*" maxlength="9" [disabled]="isReadOnly">
+            </mat-form-field>
+          </div>
+          <div class="card-wrapper">
+            <mat-form-field class="example-full-width custom-mat-select">
+              <mat-label>Tipo Documento</mat-label>
+              <mat-select [(ngModel)]="selectedTipoDocumento" required name="tipoDocumento" [disabled]="isReadOnly">
+                @for (tipoDocumento of tiposDocumentos; track tipoDocumento) {
+                <mat-option [value]="tipoDocumento.id">{{tipoDocumento.abreviatura}}</mat-option>
+                }
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="card-wrapper">
+            <mat-form-field appearance="outline" class="example-full-width custom-mat-select">
+              <mat-label>Número Documento</mat-label>
+              <input matInput placeholder="Número Documento" [(ngModel)]="numeroDocumento" required name="numeroDocumento" type="text" pattern="\d*" maxlength="12" [disabled]="isReadOnly">
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="card-container">
+          <div class="card-wrapper">
+            <mat-form-field class="example-full-width custom-mat-select">
+              <mat-label>Departamento</mat-label>
+              <mat-select [(ngModel)]="selectedDepartamento" required name="departamento" (selectionChange)="onDepartamentoSelectionChange($event)" [disabled]="isReadOnly">
+                @for (departamento of departamentos; track departamento) {
+                <mat-option [value]="departamento.id">{{departamento.descripcion}}</mat-option>
+                }
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="card-wrapper">
+            <mat-form-field class="example-full-width custom-mat-select">
+              <mat-label>Provincia</mat-label>
+              <mat-select [(ngModel)]="selectedProvincia" required name="provincia" (selectionChange)="onProvinciaSelectionChange($event)" [disabled]="isReadOnly">
+                @for (provincia of provincias; track provincia) {
+                <mat-option [value]="provincia.id">{{provincia.descripcion}}</mat-option>
+                }
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="card-wrapper">
+            <mat-form-field class="example-full-width custom-mat-select">
+              <mat-label>Distrito</mat-label>
+              <mat-select [(ngModel)]="selectedDistrito" name="distrito" required [disabled]="isReadOnly">
+                @for (distrito of distritos; track distrito) {
+                <mat-option [value]="distrito.id">{{distrito.descripcion}}</mat-option>
+                }
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="card-container">
+          <div class="card-wrapper-total">
+            <mat-form-field appearance="outline" class="example-full-width custom-mat-select">
+              <mat-label>Direccion</mat-label>
+              <input matInput placeholder="Direccion" [(ngModel)]="direccion" name="direccion" type="text" style="text-transform:uppercase" required maxlength="300" [disabled]="isReadOnly">
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="card-container">
+          <div class="card-wrapper-total">
+            <mat-form-field appearance="outline" class="example-full-width custom-mat-select">
+              <mat-label>Email</mat-label>
+              <input matInput placeholder="Email" [(ngModel)]="email" email name="email" type="text" required maxlength="300" [disabled]="isReadOnly">
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="card-container">
+          <div class="card-wrapper">
+            <mat-form-field appearance="outline" class="example-full-width custom-mat-select">
+              <mat-label>Número Brevete</mat-label>
+              <input matInput placeholder="Número Brevete" [(ngModel)]="nroBrevete" required name="nroBrevete" type="text" maxlength="50" [disabled]="isReadOnly">
+            </mat-form-field>
+          </div>
+          <div class="card-wrapper">
+            <mat-form-field appearance="outline" class="example-full-width custom-mat-select">
+              <mat-label>Categoría</mat-label>
+              <input matInput placeholder="Categoría" [(ngModel)]="categoria" required name="categoria" type="text" maxlength="50" [disabled]="isReadOnly">
+            </mat-form-field>
+          </div>
+          <div class="card-wrapper">
+             <mat-form-field class="example-full-width custom-mat-select ">
+               <mat-label>Fecha de Vencimiento</mat-label>
+               <input matInput [matDatepicker]="picker" name="date" required [(ngModel)]="selectedDateVencimiento" [disabled]="isReadOnly" >
+               <mat-hint>MM/DD/YYYY</mat-hint>
+               <mat-datepicker-toggle matIconSuffix [for]="picker">
+                 <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
+               </mat-datepicker-toggle>
+               <mat-datepicker #picker></mat-datepicker>
+             </mat-form-field>
+           </div>
+        </div>
+        <button mat-flat-button *ngIf="!ocultarBotonGuardar" [disabled]="!formPersonalForm.form.valid" color="primary">Guardar</button>
+        <span style="margin-left: 10px; margin-right: 10px;"></span>
+        <button mat-flat-button color="warn" (click)="cancelar()">Cancelar</button>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>

@@ -1,0 +1,47 @@
+/* You can add global styles to this file, and also import other style files */
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+body {
+  background: #f6f9ff;
+  color: #444444;
+}
+
+h1 {
+  text-align: center;
+}
+
+.pagetitle h1{
+  font-size: 24px;
+  margin-bottom: 0;
+  font-weight: 400;
+  color: #012970;
+}
+
+.pagetitle h3 {
+  font-size: 20px;
+  margin-bottom: 0;
+  font-weight: 400;
+  color: #012970;
+}
+
+.main-centrado {
+  padding: 20px 30px;
+  transition: all 0.3s;
+}
+
+@media (min-width: 1200px) {
+
+  .main-centrado {
+    margin-left: 220px;
+  }
+}
+
+@media (max-width: 1199px) {
+  .main-centrado {
+    padding: 20px;
+  }
+}
+
+

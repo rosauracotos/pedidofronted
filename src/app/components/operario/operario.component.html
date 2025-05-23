@@ -1,0 +1,124 @@
+<app-menu></app-menu>
+<app-aside></app-aside>
+<div class="main-centrado">
+  <br>
+  <br>
+  <div class="pagetitle container-center">
+    <h1>MANTENIMIENTO DE OPERARIOS</h1>
+  </div>
+  <div class="pagetitle">
+    <h3>Filtro de Búsqueda</h3>
+  </div>
+  <br>
+  <mat-card>
+    <mat-card-content>
+      <form #filtroPersonalForm="ngForm" (ngSubmit)="onSubmit()">
+        <div class="card-container">
+          <div class="card-wrapper">
+            <mat-form-field appearance="outline" class="example-full-width custom-mat-select">
+              <mat-label>Nombre</mat-label>
+              <input matInput placeholder="Número Documento" [(ngModel)]="nombre" name="nombre" type="text">
+            </mat-form-field>
+          </div>
+          <div class="card-wrapper">
+            <mat-form-field appearance="outline" class="example-full-width custom-mat-select">
+              <mat-label>Apellido Paterno</mat-label>
+              <input matInput placeholder="Número Documento" [(ngModel)]="apellidoPaterno" name="apellidoPaterno" type="text">
+            </mat-form-field>
+          </div>
+          <div class="card-wrapper">
+            <mat-form-field appearance="outline" class="example-full-width custom-mat-select">
+              <mat-label>Apellido Materno</mat-label>
+              <input matInput placeholder="Número Documento" [(ngModel)]="apellidoMaterno" name="apellidoMaterno" type="text">
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="card-container">
+          <div class="card-wrapper">
+            <mat-form-field class="example-full-width custom-mat-select">
+              <mat-label>Tipo Documento</mat-label>
+              <mat-select [(ngModel)]="selectedTipoDocumento" name="tipoDocumento">
+                @for (tipoDocumento of tiposDocumentos; track tipoDocumento) {
+                <mat-option [value]="tipoDocumento.id">{{tipoDocumento.abreviatura}}</mat-option>
+                }
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="card-wrapper">
+            <mat-form-field appearance="outline" class="example-full-width custom-mat-select">
+              <mat-label>Número Documento</mat-label>
+              <input matInput placeholder="Número Documento" [(ngModel)]="numeroDocumento" name="numeroDocumento" type="text" pattern="\d*" maxlength="12">
+            </mat-form-field>
+          </div>
+          <div class="card-wrapper">
+            <mat-form-field class="example-full-width custom-mat-select">
+              <mat-label>Estado Operario</mat-label>
+              <mat-select [(ngModel)]="estadoOperario" name="estadoOperario">
+                <mat-option value="A">ACTIVO</mat-option>
+                <mat-option value="I">INACTIVO</mat-option>
+                <mat-option value="T">TODOS</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+        <div>
+          <button mat-flat-button color="primary">Buscar</button>
+          <span style="margin-left: 10px; margin-right: 10px;"></span>
+          <button mat-flat-button color="warn" (click)="redirectNuevoOperario()">Nuevo</button>
+        </div>
+      </form>
+    </mat-card-content>
+  </mat-card>
+  <br>
+  <br>
+  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 custom-table">
+    <ng-container matColumnDef="numdocumento" >
+      <th mat-header-cell *matHeaderCellDef> Documento</th>
+      <td mat-cell *matCellDef="let operario"> {{operario.numDocumento}} </td>
+    </ng-container>
+    <ng-container matColumnDef="persona">
+      <th mat-header-cell *matHeaderCellDef> Persona</th>
+      <td mat-cell *matCellDef="let operario"> {{operario.persona | uppercase}} </td>
+    </ng-container>
+    <ng-container matColumnDef="brevete">
+      <th mat-header-cell *matHeaderCellDef>Brevete</th>
+      <td mat-cell *matCellDef="let operario"> {{operario.brevete}} </td>
+    </ng-container>
+    <ng-container matColumnDef="categoria">
+      <th mat-header-cell *matHeaderCellDef>Categoría</th>
+      <td mat-cell *matCellDef="let operario"> {{operario.categoria}} </td>
+    </ng-container>
+    <ng-container matColumnDef="estadooperario">
+      <th mat-header-cell *matHeaderCellDef>Estado Operario</th>
+      <td mat-cell *matCellDef="let operario"> {{operario.estadoOperario}} </td>
+    </ng-container>
+    <ng-container matColumnDef="acciones">
+      <th mat-header-cell *matHeaderCellDef>Acciones</th>
+      <td mat-cell *matCellDef="let operario">
+        <span class="acciones-container">
+          <a mat-menu-item matTooltip="Editar Operario">
+            <img src="../../../assets/images/user-edit.svg" alt="Editar" class="icono-editar" (click)="editarOperario(operario)">
+          </a>
+          <a mat-menu-item matTooltip="Visualizar Operario">
+            <img src="../../../assets/images/user-buscar.svg" alt="Editar" class="icono-editar" (click)="visualizarOperario(operario)">
+          </a>
+          <a mat-menu-item matTooltip="Dar de Baja Operario">
+            <img src="../../../assets/images/user-anular.svg" alt="Editar" class="icono-editar" (click)="darDeBajaOperario(operario)">
+          </a>
+          <!--<a mat-menu-item matTooltip="Editar Datos Personales">
+            <img src="../../../assets/images/user-edit.svg" alt="Editar" class="icono-editar" (click)="editarPersonal(colaborador)">
+          </a>-->
+        </span>
+      </td>
+    </ng-container>
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+  <mat-paginator [length]="dataSource.data.length"
+                 [pageSize]="5"
+                 [pageSizeOptions]="[1, 5, 10, 25, 100]"
+                 aria-label="Select page">
+  </mat-paginator>
+
+
+</div>

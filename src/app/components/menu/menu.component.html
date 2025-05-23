@@ -1,0 +1,16 @@
+<mat-toolbar color="primary" class="fixed-toolbar">
+  <!--<span>Nombre Empresa</span>-->
+
+  <span class="example-spacer"></span>
+
+  <span style="font-size: 13px">Bienvenido, {{ nombre }}</span>
+  <button mat-icon-button [matMenuTriggerFor]="profileMenu" class="example-icon" aria-label="Profile">
+    <mat-icon>account_circle</mat-icon>
+  </button>
+  <mat-menu #profileMenu="matMenu">
+    <button mat-menu-item (click)="logout()">
+      <mat-icon>logout_circle</mat-icon>
+      <span>Cerrar Sesión</span>
+    </button>
+  </mat-menu>
+</mat-toolbar>

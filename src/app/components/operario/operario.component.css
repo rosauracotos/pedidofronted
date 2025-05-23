@@ -1,0 +1,74 @@
+.card-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.card-wrapper {
+  flex-basis: calc(33.33% - 20px); /* Tamaño deseado de cada tarjeta (33.33% para 3 tarjetas por fila) */
+  margin-bottom: 20px; /* Espacio entre filas */
+}
+
+.custom-mat-select {
+  width: 100%;
+  padding: 0px 30px 0px 0px;
+}
+
+.custom-mat-select2 {
+  padding: 0px 3px 0px 0px;
+}
+
+.icono-editar {
+  width: 24px; /* Establece el ancho deseado */
+  height: 24px; /* Establece la altura deseada */
+}
+
+.acciones-container {
+  display: flex; /* Establece la presentación de los elementos en línea */
+}
+
+.acciones-container a {
+  margin-right: 0px; /* Ajusta el espacio entre los botones */
+}
+
+.container-botones {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.spacer {
+  flex-grow: 1;
+}
+
+.custom-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.custom-table thead {
+  /* Color de fondo azul oscuro */
+}
+
+.custom-table th {
+  color: #e8e0e0; /* Color de la letra blanca */
+  padding: 16px; /* Espaciado interno */
+  text-align: center; /* Alinear texto a la izquierda */
+  background-color: #2252a9;
+}
+
+.custom-table td {
+  padding: 16px; /* Espaciado interno */
+  border-bottom: 1px solid #e0e0e0; /* Línea inferior */
+  text-align: center;
+}
+
+.custom-table .acciones-container a {
+  margin-right: 8px; /* Espacio entre los iconos de acción */
+}
+
+.icono-editar {
+  width: 24px; /* Establece el ancho deseado */
+  height: 24px; /* Establece la altura deseada */
+}
+

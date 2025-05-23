@@ -1,0 +1,19 @@
+.menu-container {
+  display: flex;
+  margin-left: 10px;
+}
+
+.menu-item {
+  margin: 0 10px;
+}
+
+.example-spacer {
+  flex: 1 1 auto;
+}
+
+.fixed-toolbar {
+  position: fixed;
+  top: 0;
+  width: 100%; /* Para que ocupe todo el ancho de la pantalla */
+  z-index: 1000; /* Ajusta el z-index según sea necesario para evitar que otros elementos se superpongan */
+}
