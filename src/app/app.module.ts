@@ -31,6 +31,8 @@ import {MatCheckbox, MatCheckboxModule} from "@angular/material/checkbox";
 import {OperarioFormularioComponent} from "./components/operario-formulario/operario-formulario.component";
 import {MatNativeDateModule} from "@angular/material/core";
 import {MatPaginatorModule} from "@angular/material/paginator";
+import {PedidoComponent} from "./components/pedido/pedido.component";
+import {PedidoFormularioComponent} from "./components/pedido-formulario/pedido-formulario.component";
 
 
 const ngxUiLoaderConfig: NgxUiLoaderConfig = {
@@ -68,7 +70,9 @@ const ngxUiLoaderConfig: NgxUiLoaderConfig = {
     MenuComponent,
     AsideComponent,
     OperarioComponent,
-    OperarioFormularioComponent
+    OperarioFormularioComponent,
+    PedidoComponent,
+    PedidoFormularioComponent
   ],
   imports: [
     BrowserModule,

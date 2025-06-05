@@ -44,4 +44,24 @@ h1 {
   }
 }
 
+.card-wrapper-5 {
+  flex-basis: calc(5% - 20px);
+  margin-bottom: 20px;
+}
+
+.card-wrapper-25 {
+  flex-basis: calc(25% - 20px);
+  margin-bottom: 20px;
+}
+
+.card-wrapper-30 {
+  flex-basis: calc(30% - 20px);
+  margin-bottom: 20px;
+}
+
+.card-wrapper-40 {
+  flex-basis: calc(40% - 20px);
+  margin-bottom: 20px;
+}
+
 

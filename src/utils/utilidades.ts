@@ -9,7 +9,7 @@ export class Utilidades {
   }
 
   static esNullOUndefinedoVacio(variable:any) {
-    return this.esNullOUndefined(variable) || variable === "" || (typeof variable == "string" && variable.trim() === "");
+    return this.esNullOUndefined(variable) || variable === "" || variable === '' || (typeof variable == "string" && variable.trim() === "");
   }
 
   static formatMesNumero(month: number) {

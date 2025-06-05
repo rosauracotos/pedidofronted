@@ -4,6 +4,7 @@ import {LocalStorageService} from "../LocalStorageService/local.storage.service"
 import {Observable} from "rxjs";
 import {environment} from "../../../environments/enviroment";
 import {Utilidades} from "../../../utils/utilidades";
+import {ProductoDTO} from "../../models/ProductoDTO";
 
 @Injectable({
   providedIn: 'root'
@@ -127,6 +128,101 @@ export class ApiBackendService {
       'Content-Type': 'application/json'
     });
     return this.http.put<any>(environment.apiUrl +`api/operario/eliminar/` + operarioId, null, { headers: headers });
+  }
+
+  obtenerEstadosPedidos(): Observable<any> {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json'
+    });
+    return this.http.get<any>(environment.apiUrl +`api/estadoPedido/all`, { headers: headers });
+  }
+
+  obtenerOperarios(): Observable<any> {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json'
+    });
+    return this.http.get<any>(environment.apiUrl +`api/operario/all`, { headers: headers });
+  }
+
+  busquedaPaginadaPedido(cliente: string, selectedEstadoPedido: any, selectedOperario: any, max: number): Observable<any> {
+    const body = {
+      cliente: Utilidades.esNullOUndefinedoVacio(cliente) ? null : cliente,
+      estadoPedidoId: Utilidades.esNullOUndefinedoVacio(selectedEstadoPedido) ? null : selectedEstadoPedido,
+      operarioId: Utilidades.esNullOUndefinedoVacio(selectedOperario) ? null : selectedOperario,
+      max: max,
+      limite: 0,
+    };
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json'
+    });
+    return this.http.post<any>(environment.apiUrl +`api/pedido/busquedaPagina`, body, { headers: headers });
+  }
+
+  obtenerVehiculos(): Observable<any> {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json'
+    });
+    return this.http.get<any>(environment.apiUrl +`api/vehiculo/all`, { headers: headers });
+  }
+
+  obtenerClientePorTipoNumeroDocumento(tipoDocumentoId:any, numeroDocumento:string): Observable<any> {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json'
+    });
+    const params = new HttpParams()
+      .set('tipoDocumentoId', tipoDocumentoId)
+      .set('numeroDocumento', numeroDocumento);
+
+    return this.http.get<any>(environment.apiUrl +`api/cliente/obtenerPorTipoNumeroDocumento`, { headers: headers, params: params });
+  }
+
+  obtenerProductoSKU(codigoSKU:string): Observable<any> {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json'
+    });
+    const params = new HttpParams()
+      .set('codigoSKU', codigoSKU);
+
+    return this.http.get<any>(environment.apiUrl +`api/producto/obtenerPorCodigoSKU`, { headers: headers, params: params });
+  }
+
+  guardarPedido(clienteId: number, tipoDocumentoId: number, numeroDocumento:string, celular:string, apePaterno:string, apeMaterno:string,
+                nombre:string, direccion:string, email:string, operarioId:number, vehiculoId: number, fechaPedido: string,
+                productos: ProductoDTO[]): Observable<any> {
+
+    const body = {
+      clienteId: clienteId,
+      tipoDocumentoId: tipoDocumentoId,
+      numeroDocumento: numeroDocumento,
+      celular: celular,
+      apePaterno: apePaterno,
+      apeMaterno: apeMaterno,
+      nombre: nombre,
+      direccion: direccion,
+      email: email,
+      operarioId: operarioId,
+      vehiculoId: vehiculoId,
+      fechaPedido: fechaPedido,
+      productos: productos
+    };
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json'
+    });
+    return this.http.post<any>(environment.apiUrl +`api/pedido/guardar`, body, { headers: headers });
+  }
+
+  anularPedido(pedidoId: number): Observable<any> {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json'
+    });
+    return this.http.put<any>(environment.apiUrl +`api/pedido/eliminar/` + pedidoId, null, { headers: headers });
+  }
+
+  obtenerPedidoPorId(pedidoId: number):Observable<any> {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json'
+    });
+    return this.http.get<any>(environment.apiUrl +`api/pedido/`+ pedidoId, { headers: headers });
   }
 
 

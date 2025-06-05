@@ -1,0 +1,100 @@
+<app-menu></app-menu>
+<app-aside></app-aside>
+<div class="main-centrado">
+  <br>
+  <br>
+  <div class="pagetitle container-center">
+    <h1>GESTIÓN DE PEDIDOS</h1>
+  </div>
+  <div class="pagetitle">
+    <h3>Filtro de Búsqueda</h3>
+  </div>
+  <br>
+  <mat-card>
+    <mat-card-content>
+      <form #filtroPersonalForm="ngForm" (ngSubmit)="onSubmit()">
+        <div class="card-container">
+          <div class="card-wrapper2">
+            <mat-form-field appearance="outline" class="example-full-width custom-mat-select">
+              <mat-label>Nombre de Cliente</mat-label>
+              <input matInput placeholder="Número Documento" [(ngModel)]="cliente" name="nombre" type="text">
+            </mat-form-field>
+          </div>
+          <div class="card-wrapper">
+            <mat-form-field class="example-full-width custom-mat-select">
+              <mat-label>Estado de Pedido</mat-label>
+              <mat-select [(ngModel)]="selectedEstadoPedido" name="estadoPedido">
+                @for (estadoPedido of estadosPedidos; track estadoPedido) {
+                <mat-option [value]="estadoPedido.id">{{estadoPedido.nombre}}</mat-option>
+                }
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="card-container">
+          <div class="card-wrapper2">
+            <mat-form-field class="example-full-width custom-mat-select">
+              <mat-label>Operario Asignado</mat-label>
+              <mat-select [(ngModel)]="selectedOperario" name="operarioAsignado">
+                @for (operario of operarios; track operario) {
+                <mat-option [value]="operario.id">{{operario.nombre}}</mat-option>
+                }
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+        <div>
+          <button mat-flat-button color="primary">Buscar</button>
+          <span style="margin-left: 10px; margin-right: 10px;"></span>
+          <button mat-flat-button color="warn" (click)="redirectNuevoPedido()">Nuevo</button>
+        </div>
+      </form>
+    </mat-card-content>
+  </mat-card>
+  <br>
+  <br>
+  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 custom-table">
+    <ng-container matColumnDef="cliente" >
+      <th mat-header-cell *matHeaderCellDef> Cliente</th>
+      <td mat-cell *matCellDef="let pedido"> {{pedido.cliente}} </td>
+    </ng-container>
+    <ng-container matColumnDef="direccion">
+      <th mat-header-cell *matHeaderCellDef> Dirección</th>
+      <td mat-cell *matCellDef="let pedido"> {{pedido.direccion }} </td>
+    </ng-container>
+    <ng-container matColumnDef="nropedido">
+      <th mat-header-cell *matHeaderCellDef>N° de Pedido</th>
+      <td mat-cell *matCellDef="let pedido"> {{pedido.nropedido}} </td>
+    </ng-container>
+    <ng-container matColumnDef="operario">
+      <th mat-header-cell *matHeaderCellDef>Operario Asignado</th>
+      <td mat-cell *matCellDef="let pedido"> {{pedido.operario | uppercase }} </td>
+    </ng-container>
+    <ng-container matColumnDef="estadopedido">
+      <th mat-header-cell *matHeaderCellDef>Estado</th>
+      <td mat-cell *matCellDef="let pedido"> {{pedido.estadopedido}} </td>
+    </ng-container>
+    <ng-container matColumnDef="acciones">
+      <th mat-header-cell *matHeaderCellDef>Acciones</th>
+      <td mat-cell *matCellDef="let pedido">
+        <span class="acciones-container">
+          <a mat-menu-item matTooltip="Visualizar Pedido">
+            <img src="../../../assets/images/user-buscar.svg" alt="Editar" class="icono-editar" (click)="visualizarPedido(pedido)">
+          </a>
+          <a mat-menu-item matTooltip="Anular Pedido">
+            <img src="../../../assets/images/user-anular.svg" alt="Editar" class="icono-editar" (click)="anularPedido(pedido)">
+          </a>
+        </span>
+      </td>
+    </ng-container>
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+  <mat-paginator [length]="dataSource.data.length"
+                 [pageSize]="5"
+                 [pageSizeOptions]="[1, 5, 10, 25, 100]"
+                 aria-label="Select page">
+  </mat-paginator>
+
+
+</div>
