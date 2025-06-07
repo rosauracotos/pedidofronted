@@ -5,7 +5,6 @@ import {LocalStorageService} from "../../services/LocalStorageService/local.stor
 import {ActivatedRoute, Router} from "@angular/router";
 import {Utilidades} from "../../../utils/utilidades";
 import {MatTableDataSource} from "@angular/material/table";
-import {PedidoDTO} from "../../models/PedidoDTO";
 import {ProductoDTO} from "../../models/ProductoDTO";
 
 @Component({
@@ -40,7 +39,9 @@ export class PedidoFormularioComponent {
   nombreproducto: string = '';
   cantidad: number = 1;
 
-  displayedColumns: string[] = ['producto','codigo','cantidad','acciones'];
+  bloquearDatosAsignacion: boolean = true;
+
+  displayedColumns: string[] = ['producto','codigo','cantidad'];
   dataSource = new MatTableDataSource<ProductoDTO>();
 
   pedidoId: any;
@@ -85,11 +86,10 @@ export class PedidoFormularioComponent {
     );
 
     this.pedidoId = this.localStorageService.getItem("pedidoId");
-    console.log(this.pedidoId);
-    this.ocultarBotonGuardar = this.localStorageService.getItem("ocultarBotonGuardar");
+    this.ocultarBotonGuardar = this.localStorageService.getItem("ocultarBotonGuardarPedido");
     if (!Utilidades.esNullOUndefinedoVacio(this.pedidoId)) {
       this.obtenerDatosPedido(this.pedidoId);
-    };
+    }
     this.route.queryParams.subscribe(params => {
       this.isReadOnly = params['readOnly'] === 'true';
     });
@@ -111,6 +111,9 @@ export class PedidoFormularioComponent {
         this.selectedVehiculo = response.vehiculoId;
         this.selectedFechaPedido = response.fechaPedido;
         this.dataSource.data = response.productos;
+        if (!Utilidades.esNullOUndefinedoVacio(this.selectedOperario)) {
+          this.bloquearDatosAsignacion = false;
+        }
       },
       (error) => {
         this.sweetAlertService.showAlertError("Ocurrió un error al conectar al servidor");
@@ -119,24 +122,76 @@ export class PedidoFormularioComponent {
   }
 
   onSubmit() {
-    console.log(this.dataSource.data);
-    const fecha = new Date(this.selectedFechaPedido);
-    const año = fecha.getFullYear();
-    const mes = fecha.getMonth() + 1;
-    const dia = fecha.getDate();
-    const fechaFormateada = `${año}-${mes.toString().padStart(2, '0')}-${dia.toString().padStart(2, '0')}`;
-
-    this.apiBackendService.guardarPedido(this.clienteId, this.selectedTipoDocumento, this.numeroDocumento, this.numeroCelular,
-      this.apellidoPaterno, this.apellidoMaterno, this.nombre, this.direccion, this.email, this.selectedOperario, this.selectedVehiculo,
-      fechaFormateada, this.dataSource.data).subscribe(
-      (response) =>{
-        this.sweetAlertService.showAlertSuccess(response.mensaje);
-        this.router.navigate(['/pedido'])
-      },
-      (error) => {
-        this.sweetAlertService.showAlertError("Ocurrió un error al conectar al servidor");
+    if (!Utilidades.esNullOUndefinedoVacio(this.pedidoId)) {
+      if (Utilidades.esNullOUndefinedoVacio(this.selectedVehiculo)) {
+        this.sweetAlertService.showAlertError("Debe seleccionar un vehiculo");
+        return;
       }
-    );
+      if (Utilidades.esNullOUndefinedoVacio(this.selectedVehiculo)) {
+        this.sweetAlertService.showAlertError("Debe seleccionar un vehiculo");
+        return;
+      }
+      if (Utilidades.esNullOUndefinedoVacio(this.selectedFechaPedido)) {
+        this.sweetAlertService.showAlertError("Debe seleccionar un fecha de pedido");
+        return;
+      }
+      let fechaFormateada:string = '';
+      if (!Utilidades.esNullOUndefinedoVacio(this.selectedFechaPedido)) {
+        const fecha = new Date(this.selectedFechaPedido);
+        const año = fecha.getFullYear();
+        const mes = fecha.getMonth() + 1;
+        const dia = fecha.getDate();
+        fechaFormateada = `${año}-${mes.toString().padStart(2, '0')}-${dia.toString().padStart(2, '0')}`;
+      }
+
+      this.apiBackendService.editarPedido(this.pedidoId, this.clienteId, this.selectedTipoDocumento, this.numeroDocumento, this.numeroCelular,
+        this.apellidoPaterno, this.apellidoMaterno, this.nombre, this.direccion, this.email, this.selectedOperario, this.selectedVehiculo,
+        fechaFormateada, this.dataSource.data).subscribe(
+        (response) =>{
+          this.sweetAlertService.showAlertSuccess(response.mensaje);
+          this.router.navigate(['/pedido'])
+        },
+        (error) => {
+          this.sweetAlertService.showAlertError("Ocurrió un error al conectar al servidor");
+        }
+      );
+    } else {
+      if (!this.bloquearDatosAsignacion) {
+        if (Utilidades.esNullOUndefinedoVacio(this.selectedVehiculo)) {
+          this.sweetAlertService.showAlertError("Debe seleccionar un vehiculo");
+          return;
+        }
+        if (Utilidades.esNullOUndefinedoVacio(this.selectedFechaPedido)) {
+          this.sweetAlertService.showAlertError("Debe seleccionar un fecha de pedido");
+          return;
+        }
+      }
+      if (this.dataSource.data.length <= 0) {
+        this.sweetAlertService.showAlertError("Debe ingresar como mínimo 1 producto");
+        return;
+      }
+
+      let fechaFormateada:string = '';
+      if (!Utilidades.esNullOUndefinedoVacio(this.selectedFechaPedido)) {
+        const fecha = new Date(this.selectedFechaPedido);
+        const año = fecha.getFullYear();
+        const mes = fecha.getMonth() + 1;
+        const dia = fecha.getDate();
+        fechaFormateada = `${año}-${mes.toString().padStart(2, '0')}-${dia.toString().padStart(2, '0')}`;
+      }
+
+      this.apiBackendService.guardarPedido(this.clienteId, this.selectedTipoDocumento, this.numeroDocumento, this.numeroCelular,
+        this.apellidoPaterno, this.apellidoMaterno, this.nombre, this.direccion, this.email, this.selectedOperario, this.selectedVehiculo,
+        fechaFormateada, this.dataSource.data).subscribe(
+        (response) =>{
+          this.sweetAlertService.showAlertSuccess(response.mensaje);
+          this.router.navigate(['/pedido'])
+        },
+        (error) => {
+          this.sweetAlertService.showAlertError("Ocurrió un error al conectar al servidor");
+        }
+      );
+    }
   }
 
   buscarCliente() {
@@ -151,6 +206,10 @@ export class PedidoFormularioComponent {
     this.debounceTimer = setTimeout(() => {
       this.realizarAccionProducto();
     }, 2000);
+  }
+
+  habilitarBloqueoAsignarPedido() {
+    this.bloquearDatosAsignacion = false;
   }
 
   realizarAccionCliente() {
@@ -200,7 +259,6 @@ export class PedidoFormularioComponent {
   }
 
   agregarProducto() {
-    console.log(this.skuproducto);
     if (Utilidades.esNullOUndefinedoVacio(this.skuproducto)) {
       this.sweetAlertService.showAlertError("Debe ingresar un codigo SKU");
       return;

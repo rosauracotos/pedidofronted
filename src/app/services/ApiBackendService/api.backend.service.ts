@@ -202,13 +202,38 @@ export class ApiBackendService {
       email: email,
       operarioId: operarioId,
       vehiculoId: vehiculoId,
-      fechaPedido: fechaPedido,
+      fechaPedido: Utilidades.esNullOUndefinedoVacio(fechaPedido) ? null : fechaPedido,
       productos: productos
     };
     const headers = new HttpHeaders({
       'Content-Type': 'application/json'
     });
     return this.http.post<any>(environment.apiUrl +`api/pedido/guardar`, body, { headers: headers });
+  }
+
+  editarPedido(pedidoId:number, clienteId: number, tipoDocumentoId: number, numeroDocumento:string, celular:string, apePaterno:string, apeMaterno:string,
+                nombre:string, direccion:string, email:string, operarioId:number, vehiculoId: number, fechaPedido: string,
+                productos: ProductoDTO[]): Observable<any> {
+
+    const body = {
+      clienteId: clienteId,
+      tipoDocumentoId: tipoDocumentoId,
+      numeroDocumento: numeroDocumento,
+      celular: celular,
+      apePaterno: apePaterno,
+      apeMaterno: apeMaterno,
+      nombre: nombre,
+      direccion: direccion,
+      email: email,
+      operarioId: operarioId,
+      vehiculoId: vehiculoId,
+      fechaPedido: Utilidades.esNullOUndefinedoVacio(fechaPedido) ? null : fechaPedido,
+      productos: productos
+    };
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json'
+    });
+    return this.http.put<any>(environment.apiUrl +`api/pedido/editar/` + pedidoId, body, { headers: headers });
   }
 
   anularPedido(pedidoId: number): Observable<any> {

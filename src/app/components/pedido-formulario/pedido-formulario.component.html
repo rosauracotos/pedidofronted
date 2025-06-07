@@ -72,9 +72,9 @@
           <div class="card-wrapper">
             <mat-form-field class="example-full-width custom-mat-select">
               <mat-label>Operario Asignado</mat-label>
-              <mat-select [(ngModel)]="selectedOperario" required name="operario" [disabled]="isReadOnly">
+              <mat-select [(ngModel)]="selectedOperario" name="operario" [disabled]="isReadOnly" (ngModelChange)="habilitarBloqueoAsignarPedido()">
                 @for (operario of operarios; track operario) {
-                <mat-option [value]="operario.id">{{operario.nombrecompleto}}</mat-option>
+                <mat-option [value]="operario.id">{{operario.nombrecompleto | uppercase}}</mat-option>
                 }
               </mat-select>
             </mat-form-field>
@@ -82,9 +82,9 @@
           <div class="card-wrapper">
             <mat-form-field class="example-full-width custom-mat-select">
               <mat-label>Vehiculo Asignado</mat-label>
-              <mat-select [(ngModel)]="selectedVehiculo" required name="vehiculo" [disabled]="isReadOnly">
+              <mat-select [(ngModel)]="selectedVehiculo"  name="vehiculo" [disabled]="bloquearDatosAsignacion">
                 @for (vehiculo of vehiculos; track vehiculo) {
-                <mat-option [value]="vehiculo.id">{{vehiculo.placa}}</mat-option>
+                <mat-option [value]="vehiculo.id">{{vehiculo.placa | uppercase}}</mat-option>
                 }
               </mat-select>
             </mat-form-field>
@@ -92,7 +92,7 @@
           <div class="card-wrapper">
             <mat-form-field class="example-full-width custom-mat-select ">
               <mat-label>Fecha de Pedido</mat-label>
-              <input matInput [matDatepicker]="picker" name="date" required [(ngModel)]="selectedFechaPedido" [disabled]="isReadOnly" [min]="minFecha">
+              <input matInput [matDatepicker]="picker" name="date"  [(ngModel)]="selectedFechaPedido" [disabled]="bloquearDatosAsignacion" [min]="minFecha">
               <mat-hint>MM/DD/YYYY</mat-hint>
               <mat-datepicker-toggle matIconSuffix [for]="picker">
                 <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
@@ -139,12 +139,6 @@
           <ng-container matColumnDef="cantidad">
             <th mat-header-cell *matHeaderCellDef>Cantidad</th>
             <td mat-cell *matCellDef="let item"> {{item.cantidad}} </td>
-          </ng-container>
-          <ng-container matColumnDef="acciones">
-            <th mat-header-cell *matHeaderCellDef>Acciones</th>
-            <td mat-cell *matCellDef="let item">
-              <span class="acciones-container"></span>
-            </td>
           </ng-container>
           <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
           <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>

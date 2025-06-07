@@ -69,15 +69,19 @@ export class PedidoComponent {
     );
   }
 
-  editarOperario(operario:OperarioDTO) {
-    this.localStorageService.setItem('operarioId', operario.operarioId);
-    this.localStorageService.setItem('ocultarBotonGuardar', false);
-    this.router.navigate(['/operario-formulario'])
+  editarPedido(pedido:PedidoDTO) {
+    if (pedido.estadopedido != 'PENDIENTE') {
+      this.sweetAlertService.showAlertError("Solo puede asignar un operario a un pedido con estado PENDIENTE");
+      return
+    }
+    this.localStorageService.setItem('pedidoId', pedido.pedidoid);
+    this.localStorageService.setItem('ocultarBotonGuardarPedido', false);
+    this.router.navigate(['/pedido-formulario'])
   }
 
   visualizarPedido(pedido:PedidoDTO) {
     this.localStorageService.setItem('pedidoId', pedido.pedidoid);
-    this.localStorageService.setItem('ocultarBotonGuardar', true);
+    this.localStorageService.setItem('ocultarBotonGuardarPedido', true);
     this.router.navigate(['/pedido-formulario'], { queryParams: { readOnly: 'true' } })
   }
 
