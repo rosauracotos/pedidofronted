@@ -33,6 +33,11 @@ import {MatNativeDateModule} from "@angular/material/core";
 import {MatPaginatorModule} from "@angular/material/paginator";
 import {PedidoComponent} from "./components/pedido/pedido.component";
 import {PedidoFormularioComponent} from "./components/pedido-formulario/pedido-formulario.component";
+import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dialog.component';
+import { CreateVehiculoDialog } from './components/create-vehiculo-dialog/create-confirm-dialog.component';
+import { VehiculoComponent } from './components/vehiculo/vehiculo.component';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatChipsModule } from '@angular/material/chips';
 
 
 const ngxUiLoaderConfig: NgxUiLoaderConfig = {
@@ -72,7 +77,10 @@ const ngxUiLoaderConfig: NgxUiLoaderConfig = {
     OperarioComponent,
     OperarioFormularioComponent,
     PedidoComponent,
-    PedidoFormularioComponent
+    PedidoFormularioComponent,
+    VehiculoComponent,
+    ConfirmDialogComponent,
+    CreateVehiculoDialog
   ],
   imports: [
     BrowserModule,
@@ -99,7 +107,9 @@ const ngxUiLoaderConfig: NgxUiLoaderConfig = {
     MatNativeDateModule,
     MatCheckbox,
     MatCheckboxModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    MatDialogModule,
+    MatChipsModule
   ],
   providers: [
     {

@@ -1,0 +1,217 @@
+<app-menu></app-menu>
+<app-aside></app-aside>
+<div class="main-centrado">
+  <br />
+  <br />
+  <div class="pagetitle container-center">
+    <h1>MANTENIMIENTO DE VEHICULOS</h1>
+  </div>
+  <div class="pagetitle">
+    <h3>Filtro de Búsqueda</h3>
+  </div>
+  <br />
+  <mat-card>
+    <mat-card-content>
+      <form
+        #filtroPersonalForm="ngForm"
+        class="form-container"
+        onsubmit="false"
+      >
+        <div class="card-container">
+          <div class="card-wrapper">
+            <mat-form-field appearance="outline" class="example-full-width">
+              <mat-label>Placa</mat-label>
+              <input
+                matInput
+                placeholder="Placa del Vehículo"
+                name="placas"
+                [(ngModel)]="filtroVehiculo.placa"
+                type="text"
+              />
+            </mat-form-field>
+          </div>
+          <div class="card-wrapper">
+            <mat-form-field
+              appearance="outline"
+              class="example-full-width custom-mat-select"
+            >
+              <mat-label>Marca</mat-label>
+              <input
+                matInput
+                placeholder="Marca del Vehículo"
+                name="marca"
+                [(ngModel)]="filtroVehiculo.marca"
+                type="text"
+              />
+            </mat-form-field>
+          </div>
+          <div class="card-wrapper">
+            <mat-form-field
+              appearance="outline"
+              class="example-full-width custom-mat-select"
+            >
+              <mat-label>Tipo de Vehículo</mat-label>
+              <input
+                matInput
+                placeholder="Tipo de Vehículo"
+                name="tipoVehiculo"
+                [(ngModel)]="filtroVehiculo.tipoVehiculo"
+                type="text"
+              />
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="card-container">
+          <div class="card-wrapper">
+            <mat-form-field
+              appearance="outline"
+              class="example-full-width custom-mat-select"
+            >
+              <mat-label>Año</mat-label>
+              <input
+                matInput
+                placeholder="Año del Vehículo"
+                name="anio"
+                [(ngModel)]="filtroVehiculo.anio"
+                type="text"
+              />
+            </mat-form-field>
+          </div>
+          <div class="card-wrapper">
+            <mat-form-field
+              appearance="outline"
+              class="example-full-width custom-mat-select"
+            >
+              <mat-label>Estado</mat-label>
+              <mat-select [(ngModel)]="filtroVehiculo.estado" name="estado">
+                <mat-option [value]="1">Activo</mat-option>
+                <mat-option [value]="0">Inactivo</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="filters-buttons-container">
+          <button
+            mat-flat-button
+            color="primary"
+            type="button"
+            (click)="filtrarVehiculos()"
+          >
+            Buscar
+          </button>
+          <button
+            *ngIf="tieneFiltros()"
+            mat-flat-button
+            color="primary"
+            type="button"
+            (click)="limpiarFiltroVehiculos()"
+          >
+            Limpiar Filtros
+          </button>
+          <button
+            mat-flat-button
+            color="warn"
+            type="button"
+            matTooltip="Agregar Nuevo Vehículo"
+            matTooltipPosition="above"
+            class="add-button"
+            (click)="agregarVehiculo()"
+          >
+            Nuevo
+          </button>
+        </div>
+      </form>
+    </mat-card-content>
+  </mat-card>
+  <br />
+  <br />
+  <table
+    mat-table
+    [dataSource]="vehiculos"
+    class="mat-elevation-z8 custom-table"
+  >
+    <ng-container matColumnDef="placa">
+      <th mat-header-cell *matHeaderCellDef>Placa</th>
+      <td mat-cell *matCellDef="let vehiculo">{{ vehiculo.placa }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="marca">
+      <th mat-header-cell *matHeaderCellDef>Marca</th>
+      <td mat-cell *matCellDef="let vehiculo">{{ vehiculo.marca }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="tipoVehiculo">
+      <th mat-header-cell *matHeaderCellDef>Tipo de Vehículo</th>
+      <td mat-cell *matCellDef="let vehiculo">{{ vehiculo.tipoVehiculo }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="anio">
+      <th mat-header-cell *matHeaderCellDef>Año</th>
+      <td mat-cell *matCellDef="let vehiculo">{{ vehiculo.anio }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="estado">
+      <th mat-header-cell *matHeaderCellDef>Estado</th>
+      <td mat-cell *matCellDef="let vehiculo">
+        <mat-chip-set aria-label="Estado del Vehículo">
+          <mat-chip
+            [ngClass]="vehiculo.estado ? 'chip-active' : 'chip-inactive'"
+          >
+            {{ vehiculo.estado ? "Activo" : "Inactivo" }}
+          </mat-chip>
+        </mat-chip-set>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="fotografia">
+      <th mat-header-cell *matHeaderCellDef>Fotografía</th>
+      <td mat-cell *matCellDef="let vehiculo" class="custom-img-container">
+        <img
+          [src]="
+            vehiculo.fotografia ||
+            'https://placehold.co/600x400/EEE/31343C?font=noto-sans&text=No%20Image'
+          "
+          class="custom-img"
+          alt="Foto del vehículo"
+          width="100"
+          height="60"
+        />
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="acciones">
+      <th mat-header-cell *matHeaderCellDef>Acciones</th>
+      <td mat-cell *matCellDef="let vehiculo">
+        <span class="acciones-container">
+          <button
+            mat-icon-button
+            matTooltip="Editar Vehículo"
+            (click)="editarVehiculo(vehiculo)"
+          >
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button
+            mat-icon-button
+            matTooltip="Dar de Baja Vehículo"
+            (click)="eliminarVehiculo(vehiculo)"
+          >
+            <mat-icon>delete</mat-icon>
+          </button>
+        </span>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+  </table>
+  <br />
+  <mat-paginator
+    [length]="vehiculos.data.length"
+    [pageSize]="5"
+    [pageSizeOptions]="[1, 5, 10, 25, 100]"
+    aria-label="Select page"
+  >
+  </mat-paginator>
+</div>

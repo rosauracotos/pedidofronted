@@ -1,0 +1,62 @@
+mat-dialog-content {
+  padding: 16px;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+mat-form-field {
+  width: 100%;
+}
+
+mat-dialog-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.dropzone-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+}
+
+.dropzone-label {
+  font-weight: bold;
+  font-size: 16px;
+  color: #333;
+}
+
+.dropzone {
+  border: 2px dashed #007bff;
+  background-color: #f9f9f9;
+  padding: 20px;
+  text-align: center;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out, border-color 0.3s ease-in-out;
+}
+
+.dropzone:hover,
+.dropzone.dragover {
+  background-color: #e3f2fd;
+  border-color: #0056b3;
+}
+
+.dropzone p {
+  font-size: 14px;
+  color: #555;
+  margin-bottom: 10px;
+}
+
+.preview-img {
+  width: 100%;
+  max-height: 200px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-top: 10px;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+}

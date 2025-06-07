@@ -4,6 +4,7 @@ import {OperarioComponent} from "./components/operario/operario.component";
 import {OperarioFormularioComponent} from "./components/operario-formulario/operario-formulario.component";
 import {PedidoComponent} from "./components/pedido/pedido.component";
 import {PedidoFormularioComponent} from "./components/pedido-formulario/pedido-formulario.component";
+import { VehiculoComponent } from './components/vehiculo/vehiculo.component';
 
 const routes: Routes = [
   { path: '', component: OperarioComponent },
@@ -11,6 +12,7 @@ const routes: Routes = [
   { path: 'operario-formulario', component: OperarioFormularioComponent },
   { path: 'pedido', component: PedidoComponent },
   { path: 'pedido-formulario', component: PedidoFormularioComponent },
+  { path: 'vehiculo', component: VehiculoComponent },
 ];
 
 @NgModule({

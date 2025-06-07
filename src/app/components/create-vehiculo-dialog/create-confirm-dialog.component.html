@@ -1,0 +1,85 @@
+<h2 mat-dialog-title>
+  {{ modoEdicion ? "Editar Vehículo" : "Agregar Nuevo Vehículo" }}
+</h2>
+
+<mat-dialog-content style="padding-top: 1rem">
+  <form #vehiculoForm="ngForm">
+    <mat-form-field appearance="outline">
+      <mat-label>Placa</mat-label>
+      <input matInput [(ngModel)]="vehiculo.placa" name="placa" required />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Marca</mat-label>
+      <input matInput [(ngModel)]="vehiculo.marca" name="marca" required />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Año</mat-label>
+      <input
+        matInput
+        [(ngModel)]="vehiculo.anio"
+        name="anio"
+        type="number"
+        required
+      />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Tipo de Vehículo</mat-label>
+      <input
+        matInput
+        [(ngModel)]="vehiculo.tipoVehiculo"
+        name="tipoVehiculo"
+        required
+      />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Estado</mat-label>
+      <mat-select [(ngModel)]="vehiculo.estado" name="estado">
+        <mat-option [value]="true">Activo</mat-option>
+        <mat-option [value]="false">Inactivo</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <div class="dropzone-container">
+      <label class="dropzone-label">Fotografía del Vehículo</label>
+      <div
+        class="dropzone"
+        (dragover)="onDragOver($event)"
+        (drop)="onDrop($event)"
+      >
+        <p>Arrastra aquí una imagen o haz clic para seleccionarla</p>
+        <input
+          type="file"
+          (change)="subirImagen($event)"
+          accept="image/*"
+          hidden
+          #fileInput
+        />
+        <button mat-flat-button color="primary" (click)="fileInput.click()">
+          Seleccionar Imagen
+        </button>
+      </div>
+      <img
+        *ngIf="imagenPrevia"
+        [src]="imagenPrevia"
+        alt="Vista previa"
+        class="preview-img"
+      />
+    </div>
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions>
+  <button mat-button (click)="cancelar()">Cancelar</button>
+  <button
+    mat-button
+    color="primary"
+    (click)="guardar()"
+    [disabled]="!vehiculoForm.valid"
+  >
+    {{ modoEdicion ? "Actualizar" : "Guardar" }}
+  </button>
+</mat-dialog-actions>
