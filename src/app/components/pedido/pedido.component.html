@@ -37,7 +37,7 @@
               <mat-label>Operario Asignado</mat-label>
               <mat-select [(ngModel)]="selectedOperario" name="operarioAsignado">
                 @for (operario of operarios; track operario) {
-                <mat-option [value]="operario.id">{{operario.nombre}}</mat-option>
+                <mat-option [value]="operario.id">{{operario.nombrecompleto | uppercase}}</mat-option>
                 }
               </mat-select>
             </mat-form-field>
