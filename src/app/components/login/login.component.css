@@ -1,0 +1,41 @@
+mat-card {
+  max-width: 400px;
+  margin: 3em auto;
+  text-align: center;
+}
+
+mat-form-field {
+  display: block;
+}
+
+.login-container {
+  padding: 50px;
+  padding-top: 30px;
+  padding-right: 70px;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.full-page-div {
+  position: absolute; /* Ocupa todo el espacio independientemente del contenido adicional */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center; /* Alinea los items al centro verticalmente */
+  justify-content: center; /* Alinea los items al centro horizontalmente */
+  background: rgba(0, 0, 0, 0.5); /* Fondo semitransparente */
+}
+
+.titulo-sesion {
+  font-family: 'Open Sans', sans-serif; /* Usa una fuente clara y profesional */
+  color: #012970; /* Un azul oscuro que combina con el tema de tu sitio */
+  font-size: 30px; /* Tamaño de fuente significativo pero no demasiado grande */
+  font-weight: bold; /* Hace que el texto sea negrita para destacar */
+  text-align: center; /* Centra el texto dentro de su contenedor */
+  margin: 20px 0; /* Añade un poco de espacio antes y después del título */
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.5); /* Sutil sombra para mejorar la legibilidad */
+}
+

@@ -5,9 +5,12 @@ import {OperarioFormularioComponent} from "./components/operario-formulario/oper
 import {PedidoComponent} from "./components/pedido/pedido.component";
 import {PedidoFormularioComponent} from "./components/pedido-formulario/pedido-formulario.component";
 import { VehiculoComponent } from './components/vehiculo/vehiculo.component';
+import {LoginComponent} from "./components/login/login.component";
+import {InicioComponent} from "./components/inicio/inicio.component";
 
 const routes: Routes = [
-  { path: '', component: OperarioComponent },
+  { path: '', component: LoginComponent },
+  { path: 'inicio', component: InicioComponent },
   { path: 'operario', component: OperarioComponent },
   { path: 'operario-formulario', component: OperarioFormularioComponent },
   { path: 'pedido', component: PedidoComponent },

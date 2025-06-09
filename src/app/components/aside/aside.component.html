@@ -1,6 +1,6 @@
 <aside id="sidebar" class="sidebar">
   <ul class="sidebar-nav" id="sidebar-nav">
-    <li class="nav-item">
+    <!--<li class="nav-item">
       <a class="nav-link" href="/operario">
         <img style="padding: 1em" [src]="'../../../assets/images/operario.svg'" alt="Editar" class="icono-editar">
         <span> Mantenimiento de Operarios</span>
@@ -20,13 +20,13 @@
         />
         <span> Mantenimiento de Vehiculos</span>
       </a>
-    </li>
-    <!--<li class="nav-item" *ngFor="let menuItem of menuItems">
+    </li>-->
+    <li class="nav-item" *ngFor="let menuItem of menuItems">
       <a class="nav-link" [href]="menuItem.url">
         <img style="padding: 1em" [src]="'../../../assets/images/' + menuItem.nombre + '.svg'" alt="Editar" class="icono-editar">
-        <span> {{ menuItem.nombre }}</span>
+        <span> {{ menuItem.nombre | uppercase }}</span>
       </a>
-    </li>-->
+    </li>
   </ul>
 </aside>
 

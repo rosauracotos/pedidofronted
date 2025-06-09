@@ -1,0 +1,25 @@
+<div class="login-container full-page-div">
+  <mat-card >
+    <mat-card-content>
+      <form #loginForm="ngForm" (ngSubmit)="onSubmit()">
+        <h2 class="titulo-sesion">Iniciar Sesión</h2>
+        <mat-form-field appearance="outline">
+          <mat-label>Usuario</mat-label>
+          <input matInput placeholder="Usuario" [(ngModel)]="username" name="username" required type="text" maxlength="15">
+          <mat-error>
+            Por favor ingrese un usuario válido
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Contraseña</mat-label>
+          <input matInput type="password" placeholder="Contraseña" [(ngModel)]="password" name="password" required>
+          <mat-error>
+            Por favor ingrese una contraseña válida
+          </mat-error>
+        </mat-form-field>
+        <button mat-raised-button color="primary" [disabled]="!loginForm.form.valid">Ingresar</button>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>
+

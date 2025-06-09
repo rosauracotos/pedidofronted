@@ -38,6 +38,8 @@ import { CreateVehiculoDialog } from './components/create-vehiculo-dialog/create
 import { VehiculoComponent } from './components/vehiculo/vehiculo.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatChipsModule } from '@angular/material/chips';
+import {LoginComponent} from "./components/login/login.component";
+import {InicioComponent} from "./components/inicio/inicio.component";
 
 
 const ngxUiLoaderConfig: NgxUiLoaderConfig = {
@@ -80,7 +82,9 @@ const ngxUiLoaderConfig: NgxUiLoaderConfig = {
     PedidoFormularioComponent,
     VehiculoComponent,
     ConfirmDialogComponent,
-    CreateVehiculoDialog
+    CreateVehiculoDialog,
+    LoginComponent,
+    InicioComponent
   ],
   imports: [
     BrowserModule,

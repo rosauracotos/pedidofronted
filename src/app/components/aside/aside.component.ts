@@ -13,10 +13,10 @@ export class AsideComponent {
               private localStorageService: LocalStorageService) {}
 
   ngOnInit() {
-   /* if (this.authService.isLoggedIn()) {
+    if (this.authService.isLoggedIn()) {
       let menuData = this.localStorageService.getItem('menuData');
       this.menuItems = menuData || [];
-    }*/
+    }
   }
   logout() {
     this.authService.logout();
